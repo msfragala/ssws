@@ -1,0 +1,28 @@
+#!/bin/sh
+echo "Linting staged files..."
+
+PRETTIER_DIFF=$(git diff --cached --name-only --diff-filter=ACM  -- '*.js' '*.md' '*.json')
+PRETTIER_STAGED_FILES=$(echo "$PRETTIER_DIFF" | xargs echo)
+
+SS="\033[0;7m"
+NS="\033[0;27m"
+
+# Run prettier for all staged files
+if [ "$PRETTIER_STAGED_FILES" ]; then
+  PRETTIER_OUTPUT=$(./node_modules/.bin/prettier --list-different $PRETTIER_STAGED_FILES)
+  PRETTIER_STATUS="$?"
+
+  if [ "$PRETTIER_STATUS" -gt "0" ]; then
+    echo "\n${SS} PRETTIER ERRORS: ${NS}\n"
+    echo "$PRETTIER_OUTPUT"
+  fi
+fi
+
+if [[ "$PRETTIER_STATUS" -gt "0" ]]; then
+  PINK="\033[95m"
+  NC="\033[0m"
+  echo "\n🚨 Blocked commit because of linting errors. 🚨\nTry running ${PINK}yarn fix${NC} to resolve auto-fixable issues\n"
+  exit 1
+else
+  echo "✨ No linting errors found"
+fi

@@ -1,0 +1,15 @@
+{
+  "name": "ssws",
+  "version": "0.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:msfragala/ssws.git",
+  "author": "Mitchell Fragala <ms.fragala@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "git-pre-commit": ".githooks/pre-commit"
+  },
+  "devDependencies": {
+    "@vercel/git-hooks": "^1.0.0",
+    "prettier": "^2.3.0"
+  }
+}
