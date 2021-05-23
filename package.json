@@ -2,7 +2,6 @@
   "name": "ssws",
   "version": "0.0.0",
   "main": "index.js",
-  "module": "index.esm.js",
   "repository": "git@github.com:msfragala/ssws.git",
   "author": "Mitchell Fragala <ms.fragala@gmail.com>",
   "license": "MIT",
@@ -12,6 +11,8 @@
     "build:ts": "tsc",
     "clear": "rm -rf dist",
     "test": "ava",
+    "prerelease": "yarn build",
+    "release": "np",
     "git-pre-commit": ".githooks/pre-commit"
   },
   "exports": {
@@ -33,7 +34,11 @@
     }
   },
   "files": [
-    "./dist/**/*.{js,ts}"
+    "./dist/**/*",
+    "./index.js",
+    "./react.js",
+    "./immutable.js",
+    "./reducible.js"
   ],
   "prettier": {
     "arrowParens": "avoid",
@@ -48,9 +53,6 @@
     "require": [
       "esm"
     ]
-  },
-  "np": {
-    "contents": "./dist"
   },
   "dependencies": {
     "dlv": "^1.1.3",
