@@ -18,7 +18,7 @@ if [ "$PRETTIER_STAGED_FILES" ]; then
   fi
 fi
 
-AVA_OUTPUT=$(yarn build --silent && yarn test)
+AVA_OUTPUT=$(yarn build:rollup --silent && yarn test)
 AVA_STATUS="$?"
 
 if [ "$AVA_STATUS" -gt "0" ]; then
