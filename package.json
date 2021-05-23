@@ -2,6 +2,7 @@
   "name": "ssws",
   "version": "0.0.1",
   "main": "index.js",
+  "types": "dist/index.d.ts",
   "repository": "git@github.com:msfragala/ssws.git",
   "author": "Mitchell Fragala <ms.fragala@gmail.com>",
   "license": "MIT",
