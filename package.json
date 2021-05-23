@@ -34,11 +34,11 @@
     }
   },
   "files": [
-    "./dist/**/*",
-    "./index.js",
-    "./react.js",
-    "./immutable.js",
-    "./reducible.js"
+    "dist/**/*",
+    "index.js",
+    "react.js",
+    "immutable.js",
+    "reducible.js"
   ],
   "prettier": {
     "arrowParens": "avoid",
