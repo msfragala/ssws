@@ -18,7 +18,15 @@ if [ "$PRETTIER_STAGED_FILES" ]; then
   fi
 fi
 
-if [[ "$PRETTIER_STATUS" -gt "0" ]]; then
+AVA_OUTPUT=$(yarn build --silent && yarn test)
+AVA_STATUS="$?"
+
+if [ "$AVA_STATUS" -gt "0" ]; then
+  echo "\n${SS} AVA ERRORS: ${NS}\n"
+  echo "$AVA_OUTPUT"
+fi
+
+if [[ "$PRETTIER_STATUS" -gt "0" || "$AVA_STATUS" -gt "0" ]]; then
   PINK="\033[95m"
   NC="\033[0m"
   echo "\n🚨 Blocked commit because of linting errors. 🚨\nTry running ${PINK}yarn fix${NC} to resolve auto-fixable issues\n"
