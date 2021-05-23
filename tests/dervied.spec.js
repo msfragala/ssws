@@ -1,11 +1,9 @@
-import { get, writable, derived } from '../dist';
-
 import test from 'ava';
-
+import { writable, derived, get } from '../dist';
 test('Store updates when dependencies update', t => {
   const a = writable(2);
   const b = writable(5);
-  const store = derived([a, b], ([$a, $b]) => $a * $b);
+  const store = derived([a, b], ([$a, $b]) => $a * $b, 0, true);
   t.is(get(store), 10);
   a.set(3);
   t.is(get(store), 15);

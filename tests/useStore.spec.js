@@ -3,8 +3,7 @@ import React, { createElement } from 'react';
 import { cleanup, render } from '@testing-library/react';
 import { act, renderHook } from '@testing-library/react-hooks';
 import test from 'ava';
-import { get, writable } from '../dist';
-import { useStore } from '../dist/react';
+import { get, writable, useStore } from '../dist';
 
 test.afterEach(cleanup);
 

@@ -1,5 +1,4 @@
-import { get } from '../dist';
-import { reducible } from '../dist/reducible';
+import { get, reducible } from '../dist';
 import test from 'ava';
 
 test('.dispatch() :: Invokes reducer with action and alters value with result', t => {

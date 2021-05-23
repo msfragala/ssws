@@ -1,4 +1,4 @@
-import type { Readable } from '..';
+import type { Readable } from '../readable';
 
 export function noop() {}
 
@@ -30,6 +30,6 @@ export function isFunction(thing: any): thing is Function {
 
 export function getStoreValue<T>(store: Readable<T>): T {
   let value;
-  subscribe(store, _ => (value = _))();
+  subscribe(store, v => (value = v))();
   return value;
 }

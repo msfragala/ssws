@@ -1,5 +1,4 @@
-import { get } from '../dist';
-import { immutable } from '../dist/immutable';
+import { get, immutable } from '../dist';
 import test from 'ava';
 
 test('.update() :: Replaces value with mutated clone if updater function returns undefined', t => {

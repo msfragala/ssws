@@ -1,7 +1,7 @@
-import { getStoreValue, isFunction, safeNotEqual } from './lib/utils';
+import { getStoreValue, isFunction } from './lib/utils';
 import { useEffect, useLayoutEffect, useReducer, useRef } from 'react';
 
-import type { Readable } from '.';
+import type { Readable } from './readable';
 import dlv from 'dlv';
 
 const useIsomorphicLayoutEffect =
@@ -27,7 +27,7 @@ export function useStore<T, S>(
   const prevState = useRef<T>();
   const prevSelectedState = useRef<S>();
 
-  const state = getStoreValue(store);
+  const state = getStoreValue<T>(store);
   let selectedState = prevSelectedState.current;
 
   const revalidate =

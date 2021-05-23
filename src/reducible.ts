@@ -1,6 +1,5 @@
-import { Readable, StartStopNotifier } from '.';
-
 import { immutable } from './immutable';
+import { Readable } from './readable';
 
 export interface Action {
   type: string;

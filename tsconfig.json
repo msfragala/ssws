@@ -1,10 +1,16 @@
 {
-  "include": ["./src/*.ts"],
+  "files": ["./src/index.ts"],
   "exclude": ["node_modules", "dist"],
   "compilerOptions": {
     "lib": ["ES2020", "DOM"],
     "declaration": true,
-    "declarationDir": "./dist",
-    "emitDeclarationOnly": true
+    "declarationDir": "dist/types",
+    "emitDeclarationOnly": true,
+    "noEmitOnError": true,
+    "noErrorTruncation": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "typeRoots": ["./node_modules/@types"]
   }
 }

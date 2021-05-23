@@ -1,6 +1,6 @@
-import { Readable, StartStopNotifier, writable } from '.';
-
 import { klona } from 'klona';
+import { Readable } from './readable';
+import { StartStopNotifier, writable } from './writable';
 
 export type ImmutableUpdater<T> = (value: T) => void | Partial<T>;
 
