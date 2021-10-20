@@ -1,4 +1,4 @@
-import { isFunction, noop, runAll, subscribe } from './lib/utils';
+import { isFunction, noop, runAll, subscribe } from '../lib/utils';
 import { readable, Readable } from './readable';
 import { Unsubscriber } from './writable';
 

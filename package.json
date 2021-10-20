@@ -3,7 +3,7 @@
   "version": "0.0.3",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
-  "types": "dist/types/index.d.ts",
+  "types": "dist/index.d.ts",
   "repository": "git@github.com:msfragala/ssws.git",
   "author": "Mitchell Fragala <ms.fragala@gmail.com>",
   "license": "MIT",
@@ -20,12 +20,22 @@
   },
   "exports": {
     ".": {
-      "import": "./dist/index.esm.js",
-      "require": "./dist/index.js"
+      "import": "./index.esm.js",
+      "require": "./index.js"
+    },
+    "./react": {
+      "import": "./react.esm.js",
+      "require": "./react.js"
     }
   },
   "files": [
-    "dist/**/*"
+    "dist/**/*",
+    "index.d.ts",
+    "index.esm.js",
+    "index.js",
+    "react.d.ts",
+    "react.esm.js",
+    "react.js"
   ],
   "prettier": {
     "arrowParens": "avoid",
@@ -47,6 +57,11 @@
   },
   "peerDependencies": {
     "react": ">=16.8"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": true
+    }
   },
   "devDependencies": {
     "@testing-library/react": "^11.2.7",

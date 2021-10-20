@@ -19,11 +19,10 @@ configs.forEach(options =>
   esbuild.build({
     ...options,
     external: Object.keys(pkg.peerDependencies),
-    entryPoints: ['./src/index.ts'],
+    entryPoints: ['./src/index.ts', './src/react.ts'],
     outdir: './dist',
     bundle: true,
     target: 'es2020',
     platform: 'neutral',
-    // minify: true,
   })
 );

@@ -1,4 +1,4 @@
-import { noop, safeNotEqual } from './lib/utils';
+import { noop, safeNotEqual } from '../lib/utils';
 import type { Readable } from './readable';
 
 /** Callback to inform of a value updates. */

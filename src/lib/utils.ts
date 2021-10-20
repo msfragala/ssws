@@ -1,5 +1,3 @@
-import type { Readable } from '../readable';
-
 export function noop() {}
 
 export function runAll(fns) {
@@ -26,10 +24,4 @@ export function safeNotEqual(a, b) {
 
 export function isFunction(thing: any): thing is Function {
   return typeof thing === 'function';
-}
-
-export function getStoreValue<T>(store: Readable<T>): T {
-  let value;
-  subscribe(store, v => (value = v))();
-  return value;
 }

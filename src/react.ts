@@ -1,14 +1,12 @@
-import { getStoreValue, isFunction } from './lib/utils';
 import { useEffect, useLayoutEffect, useReducer, useRef } from 'react';
-
-import type { Readable } from './readable';
+import { get, Readable } from './index';
 import dlv from 'dlv';
 
 const useIsomorphicLayoutEffect =
   typeof window === 'undefined' ? useEffect : useLayoutEffect;
 
 function select(state, selector) {
-  if (isFunction(selector)) return selector(state);
+  if (typeof selector === 'function') return selector(state);
   if (typeof selector === 'string') return dlv(state, selector);
   return state;
 }
@@ -27,12 +25,11 @@ export function useStore<T, S>(
   const prevState = useRef<T>();
   const prevSelectedState = useRef<S>();
 
-  const state = getStoreValue<T>(store);
+  const state = get<T>(store);
   let selectedState = prevSelectedState.current;
 
   const revalidate =
-    selector !== prevSelector.current ||
-    getStoreValue(store) !== prevState.current;
+    selector !== prevSelector.current || get(store) !== prevState.current;
 
   if (revalidate) {
     const next = select(state, selector);
