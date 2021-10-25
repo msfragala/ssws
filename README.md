@@ -17,8 +17,8 @@ yarn add ssws
 - [derived](#derived)
 - [immutable](#immutable)
 - [reducible](#reducible)
-- [useStore](#usestore)
 - [get](#get)
+- [useStore](#usestore)
 
 ### writable
 
@@ -51,7 +51,6 @@ const time = readable(null, set => {
 
   return () => clearInterval(interval);
 });
-
 ```
 
 ### immutable
@@ -62,7 +61,7 @@ Creates a writable store with limitations around how updates work. Immutable sto
 import { immutable, get } from 'ssws';
 const store = immutable({ names: [] });
 
-// Return partial updates to be shallowly merged with the current state 
+// Return partial updates to be shallowly merged with the current state
 store.update(state => ({ places: [] });
 
 get(store); // { names: [], places: [] }
@@ -78,7 +77,7 @@ get(store); // { names: ['Bailey'] }
 
 ### reducible
 
-Creates a store that works as a reducer. Rather than methods to set or update state directly, it has a `dispatch` method to pass actions to the reducer. Reducers are immutable since `reducible` is a wrapper around `immutable`. The state that the reducer receives is a clone of the current state, like with `immutable().update`, reducers can return partial state updates or mutate the cloned state and return nothing.
+Creates a store that works as a reducer. Rather than methods to set or update state directly, it has a `dispatch` method to pass actions to the reducer. Reducers are immutable since `reducible` is a wrapper around `immutable`. The state that the reducer receives is a clone of the current state, like with `immutable().update`, so reducers can return partial state updates or mutate the cloned state and return nothing.
 
 ```js
 import { reducible } from 'ssws';
@@ -105,13 +104,16 @@ todo.dispatch({ type: 'ADD_TODO, todo: 'Play with puppies' });
 
 ### derived
 
-Derives a store from one or more other stores. Whenever one of the dependencies updates, the callback runs and the derived store value is recalculated. 
+Derives a store from one or more other stores. Whenever one of the dependencies updates, the callback runs and the derived store value is recalculated.
 
 ```js
 import { derived, writable, get } from 'ssws';
 const dogs = writable(2);
 const cats = writable(0);
-const allPets = derived([dogs, cats], ([dogCount, catCount]) => dogCount + catCount);
+const allPets = derived(
+  [dogs, cats],
+  ([dogCount, catCount]) => dogCount + catCount
+);
 
 get(allPets); // 2
 
@@ -119,12 +121,24 @@ cats.set(2);
 get(allPets); // 4
 ```
 
+### get
+
+Synchronously get the current state of a store
+
+```js
+import { get, writable } from 'ssws';
+
+const store = writable(0);
+get(store); // 0
+```
+
 ### useStore
 
 Access store state in React components using the `useStore` hook to subscribe to updates. Selectors can be either a function or a string.
 
 ```js
-import { useStore, writable } from 'ssws';
+import { writable } from 'ssws';
+import { useStore } from 'ssws/react';
 
 const $todos = writable({ todos: ['Play with a puppy'] });
 
@@ -134,10 +148,11 @@ function Todos() {
 }
 ```
 
-`useStore` will only cause a rerender if the selected state changes, based on an equality function. By default, only referential equality is checked. So if you're using `reducible` or `immutable` and your selector  returns an object or array, it will likely always fail the equality check and trigger a rerender. If your selector returns a non-primitive value, it's recommended to use multiple `useStore` hooks that do or pass in a custom equality function as a third argument:
+`useStore` will only cause a rerender if the selected state changes, based on an equality function. By default, only referential equality is checked. So if you're using `reducible` or `immutable` and your selector returns an object or array, it will likely always fail the equality check and trigger a rerender. If your selector returns a non-primitive value, it's recommended to use multiple `useStore` hooks that do or pass in a custom equality function as a third argument:
 
-```
-import { useStore, immutable } from 'ssws';
+```js
+import { immutable } from 'ssws';
+import { useStore } from 'ssws/react';
 import shallowEqual from 'shallowequal';
 
 const $todos = immutable({ todos: [{ title: 'Play with puppies' }] });
@@ -145,13 +160,4 @@ const $todos = immutable({ todos: [{ title: 'Play with puppies' }] });
 function Todos() {
   const firstTodo = useStore($todos, 'todos.0', shallowEqual);
 }
-```
-
-### get
-Synchronously get the current state of a store
-```js
-import { get, writable } from 'ssws';
-
-const store = writable(0);
-get(store); // 0
 ```

@@ -1,11 +1,25 @@
 {
   "name": "ssws",
   "version": "1.0.0",
-  "main": "dist/index.js",
-  "module": "dist/index.esm.js",
-  "types": "dist/index.d.ts",
-  "repository": "git@github.com:msfragala/ssws.git",
+  "main": "index.js",
+  "module": "index.esm.js",
+  "types": "index.d.ts",
   "author": "Mitchell Fragala <ms.fragala@gmail.com>",
+  "homepage": "https://github.com/msfragala/ssws#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/msfragala/ssws.git"
+  },
+  "keywords": [
+    "react",
+    "svetle",
+    "solid",
+    "solidjs",
+    "store",
+    "state",
+    "manage",
+    "management"
+  ],
   "license": "MIT",
   "scripts": {
     "prebuild": "yarn clear",
