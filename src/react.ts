@@ -17,7 +17,7 @@ export type Comparator<S> = (prev: S, next: S) => boolean;
 
 export function useStore<T, S>(
   store: Readable<T>,
-  selector: Selector<T, S>,
+  selector?: Selector<T, S>,
   compare: Comparator<S> = (a, b) => a === b
 ) {
   const [, forceRender] = useReducer(s => s + 1, 0);
