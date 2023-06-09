@@ -15,7 +15,7 @@ test('Only exposes a subscribe method, and none to alter the value', t => {
   const a = writable(2);
   const store = derived(a, ($a, set) => set($a * 10));
   const keys = Object.keys(store);
-  t.deepEqual(keys, ['subscribe']);
+  t.deepEqual(keys, ['subscribe', 'value']);
 });
 
 /****************************************

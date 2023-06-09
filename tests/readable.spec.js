@@ -6,7 +6,7 @@ import test from 'ava';
 test('Only exposes a subscribe method, and none to alter the value', t => {
   const store = readable(null);
   const keys = Object.keys(store);
-  t.deepEqual(keys, ['subscribe']);
+  t.deepEqual(keys, ['subscribe', 'value']);
 });
 
 /****************************************

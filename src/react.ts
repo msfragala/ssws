@@ -1,5 +1,5 @@
 import { useEffect, useLayoutEffect, useReducer, useRef } from 'react';
-import { get, Readable } from './index';
+import { Readable } from './index';
 import dlv from 'dlv';
 
 const useIsomorphicLayoutEffect =
@@ -11,11 +11,11 @@ function select(state, selector) {
   return state;
 }
 
-export type Selector<T, S> = (state: T) => S | string;
+export type Selector<T, S> = string | ((state: T) => S);
 
 export type Comparator<S> = (prev: S, next: S) => boolean;
 
-export function useStore<T, S>(
+export function useStore<T, S = T>(
   store: Readable<T>,
   selector?: Selector<T, S>,
   compare: Comparator<S> = (a, b) => a === b
@@ -25,11 +25,11 @@ export function useStore<T, S>(
   const prevState = useRef<T>();
   const prevSelectedState = useRef<S>();
 
-  const state = get<T>(store);
+  const state = store.value;
   let selectedState = prevSelectedState.current;
 
   const revalidate =
-    selector !== prevSelector.current || get(store) !== prevState.current;
+    selector !== prevSelector.current || store.value !== prevState.current;
 
   if (revalidate) {
     const next = select(state, selector);

@@ -34,5 +34,8 @@ export function immutable<T>(
         return next === undefined ? clone : { ...state, ...next };
       });
     },
+    get value() {
+      return store.value;
+    },
   };
 }

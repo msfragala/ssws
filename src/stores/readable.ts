@@ -1,24 +1,7 @@
-import {
-  Subscriber,
-  Invalidator,
-  Unsubscriber,
-  StartStopNotifier,
-  writable,
-} from './writable';
+import { StartStopNotifier, writable, Writable } from './writable';
 
 /** Readable interface for subscribing. */
-export interface Readable<T> {
-  /**
-   * Subscribe on value changes.
-   * @param {Subscriber<T>} run subscription callback
-   * @param {Invalidator<T>} invalidate cleanup callback
-   */
-  subscribe(
-    this: void,
-    run: Subscriber<T>,
-    invalidate?: Invalidator<T>
-  ): Unsubscriber;
-}
+export type Readable<T> = Omit<Writable<T>, 'set' | 'update'>;
 
 /**
  * Creates a `Readable` store that allows reading by subscription.
@@ -31,5 +14,8 @@ export function readable<T>(
 ): Readable<T> {
   return {
     subscribe: writable(value, start).subscribe,
+    get value() {
+      return value;
+    },
   };
 }

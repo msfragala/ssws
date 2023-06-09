@@ -1,5 +1,4 @@
 import { noop, safeNotEqual } from '../lib/utils';
-import type { Readable } from './readable';
 
 /** Callback to inform of a value updates. */
 export type Subscriber<T> = (value: T) => void;
@@ -17,7 +16,7 @@ export type Invalidator<T> = (value?: T) => void;
 export type StartStopNotifier<T> = (set: Subscriber<T>) => Unsubscriber | void;
 
 /** Writable interface for both updating and subscribing. */
-export interface Writable<T> extends Readable<T> {
+export interface Writable<T> {
   /**
    * Set value and inform subscribers.
    * @param value to set
@@ -29,6 +28,22 @@ export interface Writable<T> extends Readable<T> {
    * @param updater callback
    */
   update(this: void, updater: Updater<T>): void;
+
+  /**
+   * Subscribe on value changes.
+   * @param {Subscriber<T>} run subscription callback
+   * @param {Invalidator<T>} invalidate cleanup callback
+   */
+  subscribe(
+    this: void,
+    run: Subscriber<T>,
+    invalidate?: Invalidator<T>
+  ): Unsubscriber;
+
+  /**
+   * Get the current value of the store
+   */
+  value: T;
 }
 
 /** Pair of subscriber and invalidator. */
@@ -96,5 +111,12 @@ export function writable<T>(
     };
   }
 
-  return { set, update, subscribe };
+  return {
+    set,
+    update,
+    subscribe,
+    get value() {
+      return value;
+    },
+  };
 }
