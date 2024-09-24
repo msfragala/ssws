@@ -5,9 +5,7 @@ SSWS is pronounced "swiss" and stands for `Svelte stores without Svelte`. True t
 ## Installation
 
 ```sh
-npm install ssws --save
-# Or if using yarn
-yarn add ssws
+npm install ssws
 ```
 
 ## Usage
